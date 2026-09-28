@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4Stralium's Profile 💫</title>
+    <link rel="icon" type="image/png" href="icono.png">
+    <link rel="apple-touch-icon" href="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=180&q=80">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* --- RESET Y VARIABLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            background: url('hola.jpg') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            isolation: isolate;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            z-index: 0;
+        }
+
+        .visit-counter {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(14, 16, 20, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.22);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .visit-counter i {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* --- PANTALLA DE BLOQUEO (LOCKSCREEN) --- */
+        .lockscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url('hola.jpg') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            z-index: 999;
+            cursor: pointer;
+            transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+        }
+
+        .lockscreen::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(8px);
+            z-index: -1;
+        }
+
+        .lockscreen.unlocked {
+            transform: translateY(-100%);
+        }
+
+        .lock-clock {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 6.5rem;
+            font-weight: bold;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            line-height: 1;
+        }
+
+        .lock-date {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-top: 10px;
+            opacity: 0.9;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+            text-transform: capitalize;
+        }
+
+        .lock-hint {
+            position: absolute;
+            bottom: 60px;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            animation: pulse 2s infinite;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; transform: scale(0.98); }
+            50% { opacity: 0.9; transform: scale(1); }
+        }
+
+        @keyframes float-card {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+        }
+
+        /* --- CONTENEDOR PRINCIPAL DEL UI --- */
+        .desktop-container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        /* --- BARRA LATERAL IZQUIERDA --- */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px;
+            gap: 20px;
+            height: 500px;
+            width: 70px;
+            border-radius: 40px;
+            overflow: visible;
+            position: relative;
+            z-index: 5;
+        }
+
+        .sidebar-item {
+            position: relative;
+            flex: 0 0 auto;
+        }
+
+        .sidebar-tip {
+            position: absolute;
+            left: calc(100% + 14px);
+            top: 50%;
+            z-index: 10;
+            width: max-content;
+            max-width: calc(100vw - 110px);
+            padding: 9px 13px;
+            border: 1px solid rgba(255,255,255,0.22);
+            border-radius: 12px;
+            background: rgba(12, 14, 20, 0.88);
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-6px, -50%);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .sidebar-tip-line {
+            display: block;
+        }
+
+        .sidebar-tip-action {
+            margin-top: 3px;
+            color: rgba(255,255,255,0.68);
+            font-size: 0.72rem;
+        }
+
+        .sidebar-item:hover .sidebar-tip,
+        .sidebar-item:focus-within .sidebar-tip {
+            opacity: 1;
+            transform: translate(0, -50%);
+        }
+
+        .sidebar-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+            text-decoration: none;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+        }
+
+        .sidebar-btn:hover {
+            transform: translateY(-3px) scale(1.08);
+            background: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+        }
+
+        .sidebar-btn:active {
+            transform: scale(0.96);
+        }
+
+        .sidebar-btn.info {
+            border: 0;
+            padding: 0;
+        }
+
+        .sidebar-btn.search {
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+
+        /* --- PANELES DEL TABLERO PRINCIPAL --- */
+        .main-board {
+            width: 900px;
+            height: 530px;
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            position: relative;
+        }
+
+        /* --- Render de Miyu Centrado --- */
+        .character-bg-inside {
+            position: absolute;
+            top: 50%;
+            left: 47.6%;
+            transform: translate(-50%, -50%) rotate(4deg);
+            height: 103.5%;
+            max-width: 95%;
+            object-fit: contain;
+            object-position: center;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 1;
+            filter: drop-shadow(0 18px 28px rgba(0,0,0,0.5)) saturate(1.08);
+            image-rendering: auto;
+        }
+
+        /* --- COLUMNA IZQUIERDA (Reloj, Calendario y Música abajo) --- */
+        .left-col {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 3;
+            grid-column: 1;
+        }
+
+        .clock-widget {
+            color: #fff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+            position: relative;
+            padding: 8px 10px 6px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+            backdrop-filter: blur(12px);
+            box-shadow: 0 16px 32px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.14);
+            animation: float-card 6s ease-in-out infinite;
+        }
+
+        .clock-top-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 6px;
+        }
+
+        .clock-format-toggle {
+            flex: 0 0 auto;
+            padding: 5px 7px;
+            border: 1px solid rgba(255,255,255,0.28);
+            border-radius: 8px;
+            background: rgba(0,0,0,0.28);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .clock-format-toggle:hover {
+            background: rgba(255,255,255,0.18);
+            transform: translateY(-1px);
+        }
+
+        .time {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 3.5rem;
+            font-weight: bold;
+            line-height: 1;
+            letter-spacing: -2px;
+        }
+
+        .date {
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0.9;
+            margin-left: 5px;
+            text-transform: capitalize;
+        }
+
+        .calendar-widget {
+            background: linear-gradient(180deg, rgba(15, 15, 18, 0.90), rgba(24, 25, 32, 0.78));
+            color: #fff;
+            border-radius: 20px;
+            padding: 12px;
+            width: 215px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            animation: float-card 7s ease-in-out infinite;
+        }
+
+        .calendar-header {
+            text-align: center;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 4px;
+            margin-bottom: 6px;
+            text-transform: capitalize;
+            font-size: 0.8rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center;
+            font-size: 0.7rem;
+        }
+
+        .day-name { opacity: 0.5; font-weight: bold; }
+        .calendar-grid span:not(.day-name) { cursor: pointer; padding: 2px 0; display: inline-block; width: 100%; }
+        .calendar-grid .active {
+            background: #fff;
+            color: #000;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        /* --- REPRODUCTOR INTERACTIVO (Alineado a la Izquierda) --- */
+        .music-player {
+            background: linear-gradient(135deg, rgba(20, 22, 26, 0.94), rgba(30, 26, 44, 0.8));
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 18px;
+            padding: 10px 12px;
+            width: 215px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.14);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            animation: float-card 8s ease-in-out infinite reverse;
+        }
+
+        .album-art {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+            transition: background-image 0.3s ease;
+        }
+
+        .track-info {
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .track-title { 
+            font-size: 0.72rem; 
+            font-weight: 600; 
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .player-controls {
+            display: flex;
+            gap: 10px;
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-top: 4px;
+            align-items: center;
+        }
+
+        .player-controls i { cursor: pointer; transition: transform 0.1s; }
+        .player-controls i:hover { transform: scale(1.15); }
+        .player-controls i.active-btn { color: #29b6f6; }
+        .player-controls i.liked { color: #ff3b30; }
+
+        /* --- COLUMNA DERECHA (User, Galería y Muro abajo) --- */
+        .right-col {
+            grid-column: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 15px;
+            z-index: 3;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            justify-content: flex-end;
+        }
+
+        .mini-icon-btn {
+            background: rgba(0,0,0,0.8);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .user-tag {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .user-avatar {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #080808;
+        }
+
+        .greeting {
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.2rem;
+            width: 100%;
+            text-align: right;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .gallery-item {
+            border-radius: 15px;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(255,255,255,0.10), transparent 55%);
+            pointer-events: none;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.04) rotate(1deg);
+        }
+
+        .item-large {
+            height: 140px;
+            grid-row: span 2;
+            background-image: url('luffy1.jpg');
+        }
+        .item-top {
+            height: 65px;
+            background-image: url('luffy2.jpg');
+        }
+        .item-bottom {
+            height: 65px;
+            background-image: url('luffy3.jpg');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+        }
+
+        /* --- MURO DE NOTAS EN LA COLUMNA DERECHA --- */
+        .board-widget {
+            background: linear-gradient(180deg, rgba(20, 22, 26, 0.92), rgba(30, 28, 38, 0.78));
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 12px;
+            width: 100%;
+            height: 250px;
+            color: #fff;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.12);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 6px;
+            transition: height 0.25s ease, transform 0.25s ease;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            animation: float-card 7.5s ease-in-out infinite;
+        }
+
+        .board-widget.expanded {
+            height: 340px;
+            transform: scale(1.01);
+        }
+
+        .board-header {
+            font-size: 0.75rem;
+            font-weight: bold;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 4px;
+            flex-shrink: 0;
+        }
+
+        .board-expand {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 999px;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .board-expand:hover {
+            background: rgba(255,255,255,0.12);
+            transform: scale(1.08);
+        }
+
+        .messages-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding-right: 4px;
+            margin-bottom: 2px;
+        }
+
+        .messages-container::-webkit-scrollbar { width: 3px; }
+        .messages-container::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+
+        .msg-item {
+            background: rgba(255,255,255,0.06);
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 0.72rem;
+            animation: fadeIn 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        .msg-user {
+            font-weight: bold;
+            color: #b19ffb;
+            font-size: 0.72rem;
+        }
+
+        .msg-comment {
+            word-break: break-word;
+            color: #e0e0e0;
+            white-space: pre-wrap;
+            line-height: 1.4;
+        }
+
+        .board-form {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 6px;
+            flex-shrink: 0;
+        }
+
+        .board-input {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px;
+            padding: 4px 6px;
+            color: white;
+            font-size: 0.7rem;
+            outline: none;
+        }
+        .board-input::placeholder { color: rgba(255,255,255,0.4); }
+
+        .board-btn-send {
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            padding: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+            box-shadow: 0 8px 16px rgba(255,255,255,0.18);
+        }
+        .board-btn-send:hover {
+            opacity: 0.95;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 18px rgba(255,255,255,0.24);
+        }
+        .board-btn-send:active { transform: scale(0.98); }
+
+        /* --- DOCK INFERIOR ESTILO iOS --- */
+        .bottom-dock {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 18px;
+            padding: 12px 30px;
+            border-radius: 35px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .dock-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 13px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, filter 0.28s ease;
+            box-shadow: 0 10px 18px rgba(0,0,0,0.18);
+        }
+
+        .dock-icon i {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            line-height: 1;
+            color: white;
+        }
+
+        .dock-icon i {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            line-height: 1;
+            color: white;
+        }
+
+        .dock-icon:hover {
+            transform: translateY(-10px) scale(1.12);
+            box-shadow: 0 16px 26px rgba(0,0,0,0.24);
+            filter: brightness(1.08);
+        }
+        .dock-icon:active { transform: scale(0.96); }
+
+        .icon-spotify { background: #000000; }
+        .icon-discord { background: #000000; }
+        .icon-roblox { background: #000000; }
+        .icon-book { background: #000000; }
+
+        .notebook-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 8, 12, 0.35);
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            z-index: 25;
+        }
+
+        .notebook-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .notebook-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -45%) scale(0.96);
+            width: min(620px, calc(100vw - 32px));
+            max-height: 76vh;
+            background: rgba(18, 20, 26, 0.82);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 28px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.45);
+            backdrop-filter: blur(26px) saturate(150%);
+            -webkit-backdrop-filter: blur(26px) saturate(150%);
+            padding: 20px 22px 18px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s ease;
+            z-index: 30;
+        }
+
+        .notebook-panel.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .notebook-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .notebook-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .notebook-subtitle {
+            color: rgba(255,255,255,0.68);
+            font-size: 0.8rem;
+            margin-top: 4px;
+        }
+
+        .notebook-close {
+            width: 38px;
+            height: 38px;
+            border: 0;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.08);
+            color: white;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .notebook-close:hover {
+            transform: rotate(90deg) scale(1.08);
+            background: rgba(255,255,255,0.13);
+        }
+
+        .notebook-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .notebook-tab {
+            flex: 1;
+            background: rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.8);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 10px 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .notebook-tab:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .notebook-tab.active {
+            background: linear-gradient(135deg, rgba(176, 115, 255, 0.32), rgba(95, 160, 255, 0.24));
+            color: #fff;
+            border-color: rgba(199, 159, 255, 0.45);
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        .notebook-input,
+        .notebook-date-input {
+            width: 100%;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 14px;
+            background: rgba(255,255,255,0.04);
+            color: white;
+            padding: 12px 14px;
+            font-size: 0.95rem;
+            outline: none;
+            margin-bottom: 12px;
+        }
+
+        .notebook-input {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .notebook-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .notebook-btn {
+            border: 0;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #8a6dff, #3fa4ff);
+            color: white;
+            padding: 10px 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+            box-shadow: 0 12px 20px rgba(118, 98, 255, 0.28);
+        }
+
+        .notebook-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 16px 28px rgba(118, 98, 255, 0.36);
+            filter: brightness(1.04);
+        }
+
+        .notebook-btn:active { transform: scale(0.98); }
+
+        .notebook-list {
+            display: grid;
+            gap: 10px;
+            max-height: 280px;
+            overflow: auto;
+            padding-right: 4px;
+        }
+
+        .notebook-item {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 12px 14px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .notebook-item small {
+            display: block;
+            color: rgba(255,255,255,0.56);
+            margin-bottom: 6px;
+        }
+
+        .notebook-date-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .notebook-empty {
+            color: rgba(255,255,255,0.55);
+            text-align: center;
+            padding: 16px 10px;
+            font-size: 0.85rem;
+        }
+
+        .notebook-delete {
+            background: rgba(255,90,90,0.12);
+            border: 1px solid rgba(255,120,120,0.3);
+            color: #ffc2c2;
+            border-radius: 10px;
+            padding: 6px 10px;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="stars-layer" id="stars-layer" aria-hidden="true"></div>
+
+    <div class="visit-counter" aria-live="polite">
+        <i class="fa-solid fa-eye"></i>
+        <span id="visit-count">0</span>
+    </div>
+
+    <div class="lockscreen" id="lockscreen" onclick="unlockTablet()">
+        <div class="lock-clock" id="lock-clock">00:00</div>
+        <div class="lock-date" id="lock-date">Date</div>
+        <div class="lock-hint">HAZ CLIC EN CUALQUIER LUGAR PARA DESBLOQUEAR</div>
+    </div>
+
+    <div class="desktop-container">
+        
+        <div class="sidebar glass-panel">
+            <div class="sidebar-btn search"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <div class="sidebar-item">
+                <button type="button" class="sidebar-btn info" aria-label="Cumpleaños: 27/07">
+                    <i class="fa-solid fa-cake-candles"></i>
+                </button>
+                <span class="sidebar-tip">Bday: 27/07 🎂</span>
+            </div>
+            <div class="sidebar-item">
+                <button type="button" class="sidebar-btn info" aria-label="Edad: 19 años">
+                    <i class="fa-solid fa-user"></i>
+                </button>
+                <span class="sidebar-tip">Age: 19yo 💫</span>
+            </div>
+            <div class="sidebar-item">
+                <button type="button" class="sidebar-btn info" id="steam-copy-btn" aria-label="Copiar Steam ID 796891322">
+                    <i class="fa-brands fa-steam-symbol"></i>
+                </button>
+                <span class="sidebar-tip" aria-live="polite">
+                    <span class="sidebar-tip-line">Steam ID: 796891322</span>
+                    <span class="sidebar-tip-line sidebar-tip-action" id="steam-copy-tip">Click to copy</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="main-board glass-panel">
+            
+            <img class="character-bg-inside" src="greninja.png" alt="GODNinja">
+
+            <div class="left-col">
+                <div class="clock-widget">
+                    <div class="clock-top-row">
+                        <div class="time" id="live-clock">00:00</div>
+                        <button type="button" class="clock-format-toggle" id="clock-format-toggle" aria-label="Cambiar a formato de 12 horas">24H</button>
+                    </div>
+                    <div class="date" id="live-date">Date</div>
+                </div>
+
+                <div class="calendar-widget">
+                    <div class="calendar-header" id="calendar-month">Month</div>
+                    <div class="calendar-grid" id="calendar-grid">
+                        <span class="day-name">D</span><span class="day-name">L</span><span class="day-name">M</span><span class="day-name">M</span><span class="day-name">J</span><span class="day-name">V</span><span class="day-name">S</span>
+                    </div>
+                </div>
+
+                <div class="music-player">
+                    <audio id="main-audio" src=""></audio>
+                    <div class="album-art" id="player-art"></div>
+                    <div class="track-info">
+                        <div class="track-title" id="track-title">Cargando...</div>
+                        <div class="player-controls">
+                            <i class="fa-solid fa-repeat" id="btn-repeat"></i>
+                            <i class="fa-solid fa-backward-step" id="btn-prev"></i>
+                            <i class="fa-solid fa-play" id="play-btn"></i>
+                            <i class="fa-solid fa-forward-step" id="btn-next"></i>
+                            <i class="fa-solid fa-heart" id="btn-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="center-spacer" style="grid-column: 2; pointer-events: none;"></div>
+
+            <div class="right-col">
+                <div class="header-right">
+                    <div class="mini-icon-btn"><i class="fa-brands fa-figma"></i></div>
+                    <div class="user-tag">
+                        <span>4Stralium!</span>
+                        <div class="user-avatar"></div>
+                    </div>
+                </div>
+
+                <div class="greeting" id="dynamic-greeting">Welcome Back 4Stralium!</div>
+
+                <div class="gallery-grid">
+                    <div class="gallery-item item-large"></div>
+                    <div class="gallery-item item-top"></div>
+                    <div class="gallery-item item-bottom">
+                    </div>
+                </div>
+
+                <div class="board-widget" id="board-widget">
+                    <div class="board-header">
+                        <div style="display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-comments"></i> Muro Público</div>
+                        <button type="button" class="board-expand" id="board-expand" aria-label="Expandir muro">↕</button>
+                    </div>
+                    <div class="messages-container" id="messages-container"></div>
+                    <div class="board-form">
+                        <input type="text" id="input-name" class="board-input" placeholder="Tu Nick..." maxlength="12">
+                        <input type="text" id="input-msg" class="board-input" placeholder="Escribe un mensaje..." maxlength="50">
+                        <button class="board-btn-send" onclick="sendMessage()">Firmar Muro</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="notebook-overlay" id="notebook-overlay"></div>
+
+    <div class="notebook-panel glass-panel" id="notebook-panel" aria-hidden="true">
+        <div class="notebook-header">
+            <div>
+                <div class="notebook-title">Cuaderno</div>
+                <div class="notebook-subtitle">Apuntes, tareas y fechas importantes</div>
+            </div>
+            <button class="notebook-close" id="notebook-close" aria-label="Cerrar cuaderno">×</button>
+        </div>
+
+        <div class="notebook-tabs">
+            <button class="notebook-tab active" data-tab="notes" type="button">Apuntes</button>
+            <button class="notebook-tab" data-tab="dates" type="button">Fechas</button>
+        </div>
+
+        <div class="tab-panel active" id="panel-notes">
+            <textarea id="note-input" class="notebook-input" placeholder="Escribe un apunte, idea o recordatorio..."></textarea>
+            <div class="notebook-actions">
+                <button class="notebook-btn" id="save-note" type="button">Guardar apunte</button>
+            </div>
+            <div class="notebook-list" id="notes-list"></div>
+        </div>
+
+        <div class="tab-panel" id="panel-dates">
+            <input id="date-title" class="notebook-input notebook-date-input" type="text" placeholder="Nombre del evento o recordatorio" maxlength="60">
+            <input id="date-input" class="notebook-date-input" type="date">
+            <div class="notebook-actions">
+                <button class="notebook-btn" id="save-date" type="button">Guardar fecha</button>
+            </div>
+            <div class="notebook-list" id="dates-list"></div>
+        </div>
+    </div>
+
+    <div class="bottom-dock glass-panel">
+        <a href="https://open.spotify.com/user/31nfj4ygykkxki42enzjnyj7jdmy?si=30d55e1dc09f455f" target="_blank" rel="noopener noreferrer" class="dock-icon icon-spotify" aria-label="Spotify"><i class="fa-brands fa-spotify"></i></a>
+        <a href="https://discord.com/users/1251665194736943117" target="_blank" rel="noopener noreferrer" class="dock-icon icon-discord" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+        <a href="https://www.roblox.com/users/894888300/profile" target="_blank" rel="noopener noreferrer" class="dock-icon icon-roblox" aria-label="Roblox"><i class="fa-brands fa-roblox-creator-studio"></i></a>
+        <button type="button" class="dock-icon icon-book" id="book-btn" aria-label="Abrir cuaderno"><i class="fa-solid fa-book"></i></button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, push, onValue, query, limitToLast, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = { databaseURL: "https://xatspaces-notes-default-rtdb.firebaseio.com/" };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const messagesRef = ref(db, 'messages');
+        const visitsRef = ref(db, 'stats/visits');
+
+        window.firebaseDb = { onValue, runTransaction };
+        window.visitsRef = visitsRef;
+
+        const recentMessagesQuery = query(messagesRef, limitToLast(15));
+        const localWallMessagesKey = 'profile-wall-messages';
+
+        function getLocalWallMessages() {
+            try {
+                const value = localStorage.getItem(localWallMessagesKey);
+                return value ? JSON.parse(value) : [];
+            } catch {
+                return [];
+            }
+        }
+
+        function saveLocalWallMessages(messages) {
+            localStorage.setItem(localWallMessagesKey, JSON.stringify(messages));
+        }
+
+        function renderWallMessages(messages) {
+            const container = document.getElementById('messages-container');
+            if (!container) return;
+
+            container.innerHTML = '';
+            const items = Array.isArray(messages) ? [...messages].sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)) : [];
+
+            if (!items.length) {
+                container.innerHTML = `<div style="font-size:0.7rem; opacity:0.5; text-align:center; margin-top:20px;">¡Muro libre! Deja una nota.</div>`;
+                return;
+            }
+
+            items.forEach(msg => {
+                const item = document.createElement('div');
+                item.className = 'msg-item';
+                item.innerHTML = `
+                    <div class="msg-user">${escapeHTML(msg.name || 'Anónimo')}</div>
+                    <div class="msg-comment">${escapeHTML(msg.text || '')}</div>
+                `;
+                container.appendChild(item);
+            });
+
+            container.scrollTop = container.scrollHeight;
+        }
+
+        renderWallMessages(getLocalWallMessages());
+
+        onValue(recentMessagesQuery, (snapshot) => {
+            const data = snapshot.val();
+            const localMessages = getLocalWallMessages();
+            const remoteMessages = data ? Object.values(data).map((msg, index) => ({
+                ...msg,
+                createdAt: msg.createdAt || Date.now() + index,
+                name: msg.name || 'Anónimo',
+                text: msg.text || ''
+            })) : [];
+            const combinedMessages = new Map();
+
+            [...localMessages, ...remoteMessages].forEach((msg) => {
+                const key = `${msg.createdAt || 0}|${msg.name || 'Anónimo'}|${msg.text || ''}`;
+                combinedMessages.set(key, msg);
+            });
+
+            const messages = [...combinedMessages.values()]
+                .sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+
+            saveLocalWallMessages(messages);
+            renderWallMessages(messages);
+        });
+
+        window.sendMessage = function() {
+            const nameInput = document.getElementById('input-name');
+            const msgInput = document.getElementById('input-msg');
+            const name = nameInput.value.trim() || "Anónimo";
+            const text = msgInput.value.trim();
+            if (!text) return;
+
+            const newMessage = {
+                name,
+                text,
+                createdAt: Date.now()
+            };
+
+            const localMessages = getLocalWallMessages();
+            localMessages.unshift(newMessage);
+            saveLocalWallMessages(localMessages);
+            renderWallMessages(localMessages);
+
+            push(messagesRef, newMessage).catch(() => {
+                console.warn('Firebase no aceptó el mensaje; se guardó localmente.');
+            });
+
+            nameInput.value = "";
+            msgInput.value = "";
+        };
+
+        function escapeHTML(str) {
+            return String(str || '').replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
+        }
+    </script>
+
+    <script>
+        const steamCopyButton = document.getElementById('steam-copy-btn');
+        const steamCopyTip = document.getElementById('steam-copy-tip');
+        let steamCopyResetTimer;
+
+        async function copySteamId() {
+            const steamId = '796891322';
+            let copied = false;
+
+            try {
+                if (navigator.clipboard?.writeText) {
+                    await navigator.clipboard.writeText(steamId);
+                    copied = true;
+                }
+            } catch {
+                copied = false;
+            }
+
+            if (!copied) {
+                const temporaryInput = document.createElement('textarea');
+                temporaryInput.value = steamId;
+                temporaryInput.setAttribute('readonly', '');
+                temporaryInput.style.position = 'fixed';
+                temporaryInput.style.opacity = '0';
+                document.body.appendChild(temporaryInput);
+                temporaryInput.select();
+                copied = document.execCommand('copy');
+                temporaryInput.remove();
+            }
+
+            steamCopyTip.textContent = copied ? 'Copied!' : 'Copy failed';
+            clearTimeout(steamCopyResetTimer);
+            steamCopyResetTimer = setTimeout(() => {
+                steamCopyTip.textContent = 'Click to copy';
+            }, 1600);
+        }
+
+        steamCopyButton.addEventListener('click', copySteamId);
+
+        // --- PLAYLIST ---
+        const playlist = [
+            { title: "DELIVERY FREESTYLE", art: "turr4zo.jpg", url: "trueno1.mp3" },
+            { title: "RAIN IV", art: "turr4zo.jpg", url: "trueno2.mp3" },
+            { title: "PITY IN THE SKY", art: "turr4zo.jpg", url: "trueno3.mp3" }
+        ];
+
+        let currentTrackIndex = 0;
+        let isLooping = false;
+
+        const audio = document.getElementById('main-audio');
+        const playBtn = document.getElementById('play-btn');
+        const trackTitle = document.getElementById('track-title');
+        const playerArt = document.getElementById('player-art');
+        const btnRepeat = document.getElementById('btn-repeat');
+        const btnHeart = document.getElementById('btn-heart');
+
+        // Se corrigieron las referencias de los botones multimedia
+        function loadTrack(index) {
+            const track = playlist[index];
+            audio.src = track.url;
+            trackTitle.textContent = track.title;
+            playerArt.style.backgroundImage = `url('${track.art}')`;
+        }
+
+        function playCurrentTrack() {
+            audio.play().then(() => {
+                playBtn.classList.replace('fa-play', 'fa-pause');
+            }).catch(() => {});
+        }
+
+        function togglePlay() {
+            if (audio.paused) {
+                audio.play().then(() => playBtn.classList.replace('fa-play', 'fa-pause')).catch(err => console.log(err));
+            } else {
+                audio.pause();
+                playBtn.classList.replace('fa-pause', 'fa-play');
+            }
+        }
+
+        playBtn.addEventListener('click', (e) => { e.stopPropagation(); togglePlay(); });
+        document.getElementById('btn-next').addEventListener('click', (e) => { e.stopPropagation(); currentTrackIndex = (currentTrackIndex + 1) % playlist.length; loadTrack(currentTrackIndex); togglePlay(); });
+        document.getElementById('btn-prev').addEventListener('click', (e) => { e.stopPropagation(); currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length; loadTrack(currentTrackIndex); togglePlay(); });
+        btnRepeat.addEventListener('click', (e) => { e.stopPropagation(); isLooping = !isLooping; audio.loop = isLooping; btnRepeat.classList.toggle('active-btn', isLooping); });
+        btnHeart.addEventListener('click', (e) => { e.stopPropagation(); btnHeart.classList.toggle('liked'); });
+        audio.addEventListener('ended', () => { if (!isLooping) document.getElementById('btn-next').click(); });
+
+        function initVisitCounter() {
+            const counterEl = document.getElementById('visit-count');
+            const sessionKey = 'profile-visit-counted';
+            const alreadyCounted = sessionStorage.getItem(sessionKey) === 'true';
+            const firebaseApi = window.firebaseDb || { onValue: () => {}, runTransaction: () => Promise.resolve(0) };
+
+            firebaseApi.onValue(window.visitsRef, (snapshot) => {
+                const count = snapshot.val() ?? 0;
+                if (counterEl) counterEl.textContent = count;
+            });
+
+            if (alreadyCounted) return;
+
+            sessionStorage.setItem(sessionKey, 'true');
+
+            firebaseApi.runTransaction(window.visitsRef, (currentValue) => {
+                return (currentValue ?? 0) + 1;
+            }).catch((error) => {
+                console.error('Error actualizando visitas globales:', error);
+                sessionStorage.removeItem(sessionKey);
+            });
+        }
+
+        function initStars() {
+            const starsLayer = document.getElementById('stars-layer');
+            const totalStars = 60;
+
+            for (let i = 0; i < totalStars; i++) {
+                const star = document.createElement('span');
+                star.className = 'star-particle';
+                const left = Math.random() * 100;
+                const delay = Math.random() * 10;
+                const duration = 6 + Math.random() * 7;
+                const drift = (Math.random() * 200 - 100).toFixed(2) + 'px';
+                const size = (Math.random() * 2.8 + 2.2).toFixed(2) + 'px';
+
+                star.style.left = left + '%';
+                star.style.animationDelay = delay + 's';
+                star.style.animationDuration = duration + 's';
+                star.style.setProperty('--drift', drift);
+                star.style.width = size;
+                star.style.height = size;
+
+                starsLayer.appendChild(star);
+            }
+        }
+
+        const NOTEBOOK_NOTES_KEY = 'notebook-notes';
+        const NOTEBOOK_DATES_KEY = 'notebook-dates';
+
+        function getStoredItems(key) {
+            try {
+                const value = localStorage.getItem(key);
+                return value ? JSON.parse(value) : [];
+            } catch {
+                return [];
+            }
+        }
+
+        function saveStoredItems(key, items) {
+            localStorage.setItem(key, JSON.stringify(items));
+        }
+
+        function renderNotes() {
+            const notesList = document.getElementById('notes-list');
+            const notes = getStoredItems(NOTEBOOK_NOTES_KEY);
+
+            if (!notes.length) {
+                notesList.innerHTML = '<div class="notebook-empty">No hay apuntes todavía.</div>';
+                return;
+            }
+
+            notesList.innerHTML = notes.map(note => `
+                <div class="notebook-item notebook-date-item">
+                    <div>
+                        <small>${note.date}</small>
+                        <div>${note.text}</div>
+                    </div>
+                    <button class="notebook-delete" data-note-id="${note.id}" type="button">Borrar</button>
+                </div>
+            `).join('');
+
+            notesList.querySelectorAll('.notebook-delete').forEach(button => {
+                button.addEventListener('click', () => {
+                    const savedNotes = getStoredItems(NOTEBOOK_NOTES_KEY).filter(note => note.id !== Number(button.dataset.noteId));
+                    saveStoredItems(NOTEBOOK_NOTES_KEY, savedNotes);
+                    renderNotes();
+                });
+            });
+        }
+
+        function renderDates() {
+            const datesList = document.getElementById('dates-list');
+            const dates = (getStoredItems(NOTEBOOK_DATES_KEY) || []).sort((a, b) => a.date.localeCompare(b.date));
+
+            if (!dates.length) {
+                datesList.innerHTML = '<div class="notebook-empty">No hay fechas importantes.</div>';
+                return;
+            }
+
+            datesList.innerHTML = dates.map(item => `
+                <div class="notebook-item notebook-date-item">
+                    <div>
+                        <small>${item.date}</small>
+                        <div>${item.title}</div>
+                    </div>
+                    <button class="notebook-delete" data-date-id="${item.id}" type="button">Borrar</button>
+                </div>
+            `).join('');
+
+            datesList.querySelectorAll('.notebook-delete').forEach(button => {
+                button.addEventListener('click', () => {
+                    const savedDates = getStoredItems(NOTEBOOK_DATES_KEY).filter(date => date.id !== Number(button.dataset.dateId));
+                    saveStoredItems(NOTEBOOK_DATES_KEY, savedDates);
+                    renderDates();
+                });
+            });
+        }
+
+        function toggleNotebook(forceOpen) {
+            const overlay = document.getElementById('notebook-overlay');
+            const panel = document.getElementById('notebook-panel');
+            const shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : !panel.classList.contains('visible');
+
+            panel.classList.toggle('visible', shouldOpen);
+            overlay.classList.toggle('visible', shouldOpen);
+            panel.setAttribute('aria-hidden', String(!shouldOpen));
+        }
+
+        document.getElementById('book-btn').addEventListener('click', () => toggleNotebook());
+        document.getElementById('notebook-close').addEventListener('click', () => toggleNotebook(false));
+        document.getElementById('notebook-overlay').addEventListener('click', () => toggleNotebook(false));
+
+        document.querySelectorAll('.notebook-tab').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.notebook-tab').forEach(tab => tab.classList.toggle('active', tab === button));
+                const tabName = button.dataset.tab;
+                document.getElementById('panel-notes').classList.toggle('active', tabName === 'notes');
+                document.getElementById('panel-dates').classList.toggle('active', tabName === 'dates');
+            });
+        });
+
+        const boardWidget = document.getElementById('board-widget');
+        const boardExpandBtn = document.getElementById('board-expand');
+
+        boardExpandBtn.addEventListener('click', () => {
+            boardWidget.classList.toggle('expanded');
+            boardExpandBtn.textContent = boardWidget.classList.contains('expanded') ? '↕' : '↕';
+        });
+
+        document.getElementById('save-note').addEventListener('click', () => {
+            const value = document.getElementById('note-input').value.trim();
+            if (!value) return;
+
+            const currentNotes = getStoredItems(NOTEBOOK_NOTES_KEY);
+            currentNotes.unshift({
+                id: Date.now(),
+                text: value,
+                date: new Date().toLocaleString('es-ES', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+            });
+
+            saveStoredItems(NOTEBOOK_NOTES_KEY, currentNotes);
+            renderNotes();
+            document.getElementById('note-input').value = '';
+        });
+
+        document.getElementById('save-date').addEventListener('click', () => {
+            const title = document.getElementById('date-title').value.trim();
+            const date = document.getElementById('date-input').value;
+
+            if (!title || !date) return;
+
+            const currentDates = getStoredItems(NOTEBOOK_DATES_KEY);
+            currentDates.push({ id: Date.now(), title, date });
+            saveStoredItems(NOTEBOOK_DATES_KEY, currentDates);
+            renderDates();
+            document.getElementById('date-title').value = '';
+            document.getElementById('date-input').value = '';
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                toggleNotebook(false);
+            }
+        });
+
+        renderNotes();
+        renderDates();
+
+        // --- SYSTEM CORE ---
+        function unlockTablet() { document.getElementById('lockscreen').classList.add('unlocked'); }
+
+        const clockFormatToggle = document.getElementById('clock-format-toggle');
+        let use24HourClock = localStorage.getItem('clockFormat') !== '12';
+
+        clockFormatToggle.addEventListener('click', () => {
+            use24HourClock = !use24HourClock;
+            localStorage.setItem('clockFormat', use24HourClock ? '24' : '12');
+            updateClockAndCalendar();
+        });
+
+        function updateClockAndCalendar() {
+            const now = new Date();
+            const hourInt = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const hours = use24HourClock
+                ? `${hourInt.toString().padStart(2, '0')}:${minutes}`
+                : `${(hourInt % 12 || 12)}:${minutes} ${hourInt >= 12 ? 'PM' : 'AM'}`;
+            
+            document.getElementById('live-clock').textContent = hours;
+            document.getElementById('lock-clock').textContent = hours;
+            clockFormatToggle.textContent = use24HourClock ? '24H' : '12H';
+            clockFormatToggle.setAttribute('aria-label', `Cambiar a formato de ${use24HourClock ? '12' : '24'} horas`);
+            document.getElementById('live-date').textContent = now.toLocaleDateString('es-ES', { weekday: 'long', month: '2-digit', day: '2-digit' });
+            document.getElementById('lock-date').textContent = now.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+
+            const greetingEl = document.getElementById('dynamic-greeting');
+            if (hourInt >= 6 && hourInt < 12) greetingEl.textContent = "Buenos Dias! ☕";
+            else if (hourInt >= 12 && hourInt < 18) greetingEl.textContent = "¿Qué tal la tarde? ✨";
+            else if (hourInt >= 18 && hourInt < 23) greetingEl.textContent = "Buscando un break? 🎬";
+            else greetingEl.textContent = "Desvelandote? 🌙";
+        }
+
+        function buildCalendar() {
+            const now = new Date();
+            const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+            document.getElementById('calendar-month').textContent = `${monthNames[now.getMonth()]} ${now.getFullYear()}`;
+            const grid = document.getElementById('calendar-grid');
+            const firstDayIndex = new Date(now.getFullYear(), now.getMonth(), 1).getDay(); 
+            const totalDays = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+
+            for (let i = 0; i < firstDayIndex; i++) grid.appendChild(document.createElement('span'));
+            for (let day = 1; day <= totalDays; day++) {
+                const daySpan = document.createElement('span');
+                daySpan.textContent = day;
+                if (day === now.getDate()) daySpan.classList.add('active');
+                grid.appendChild(daySpan);
+            }
+        }
+
+        setInterval(updateClockAndCalendar, 1000);
+        updateClockAndCalendar();
+        buildCalendar();
+        loadTrack(currentTrackIndex);
+        playCurrentTrack();
+        initVisitCounter();
+        initStars();
+    </script>
+</body>
+</html>
